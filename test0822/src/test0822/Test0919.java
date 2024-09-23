@@ -36,7 +36,7 @@ public class Test0919 extends Object { // Object 클래스는 객체 생성 시 
 		String aaa = t.str;
 		System.out.println("str에 담긴 값은? " + aaa);
 		
-		Test 0919 tt = new Test0919(1);
+		Test0919 tt = new Test0919(1);
 		
 		C c = new C();
 		c.getSum();
