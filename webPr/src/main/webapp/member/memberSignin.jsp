@@ -4,52 +4,7 @@
 <HTML>
 <HEAD>
 <TITLE>Signin</TITLE>
-<style>
-nav {
-	width: 15%;
-	height: 300px;
-	float: left;
-	background-color: blue;
-}
-
-section {
-	width: 70%;
-	height: 300px;
-	float: left;
-	background: olivedrab;
-}
-
-aside {
-	width: 15%;
-	height: 300px;
-	float: left;
-	background: orange;
-}
-
-footer {
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	clear: both;
-	background: plum;
-}
-
-body {
-	background-color: mistyrose;
-	margin: 0px;
-	padding: 0px;
-}
-
-table {
-	margin: 0px;
-	padding: 0px;
-}
-
-th {
-	background-color: yellow;
-	font-weight: bold;
-}
-</style>
+<link href="../css/style.css" type="text/css" rel="stylesheet">
 </HEAD>
 
 <BODY>
