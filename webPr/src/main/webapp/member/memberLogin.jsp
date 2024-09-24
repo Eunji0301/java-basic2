@@ -14,7 +14,7 @@
 	<table border="1">
 		<tr>
 			<td>아이디</td>
-			<td><input type="text" name="id" maxlength="100"
+			<td><input type="text" name="id" maxl   b ength="100"
 				style="width: 250px;" placeholder="아이디를 입력하세요"></input>
 			<td>
 		</tr>
