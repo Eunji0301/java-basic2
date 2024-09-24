@@ -13,12 +13,12 @@
 	<form name="frm" action="memberSigninAction.jsp" method="post">
 		<table border="1">
 			<tr>
-				<th>아이디</th>
+				<th class="idcolor">아이디</th>
 				<td><input type="text" name="memberId" maxlength="50"
 					style="width: 100px;"></td>
 			</tr>
 			<tr>
-				<th>비밀번호</th>
+				<th class="idcolor">비밀번호</th>
 				<td><input type="password" name="memberPw" maxlength="50"
 					style="width: 50px;"></td>
 			</tr>
