@@ -8,8 +8,12 @@
 </HEAD>
 
 <BODY>
-	<header>회원가입 페이지</header>
-
+	<header>
+		<a href="./memberSignin.jsp">회원가입 페이지</a>
+	</header>
+	<nav>
+		<a href="./memberLogin.jsp">회원로그인 가기</a>
+	</nav>
 	<form name="frm" action="memberSigninAction.jsp" method="post">
 		<table border="1">
 			<tr>
@@ -28,7 +32,7 @@
 					maxlength="50" style="width: 50px;"></td>
 			</tr>
 			<tr>
-				<th>이름</th>
+				<th id="name">이름</th>
 				<td><input type="text" name="memberName" maxlength="50"
 					style="width: 100px;"></td>
 			</tr>

@@ -48,3 +48,12 @@ th {
 .idcolor {
 	color : #FF6600;
 }
+
+#name {
+	color : red;
+	font-size : 30px;
+}
+
+input[type=password] {
+	background-color : dodgerblue;
+}
