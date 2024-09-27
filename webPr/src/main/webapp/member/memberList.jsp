@@ -30,6 +30,14 @@ thead, tfoot {
 	background: darkgray;
 	color: yellow;
 }
+
+tbody tr:nth-child(even) {
+	background: aliceblue;
+}
+
+tbody tr:hover {
+	background: pink
+}
 </style>
 </head>
 <body>

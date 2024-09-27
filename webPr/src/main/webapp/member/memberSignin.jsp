@@ -58,8 +58,8 @@
 			</tr>
 			<tr>
 				<th>성별</th>
-				<td><input type="radio" name="memberGender" value="남성">남성
-					<input type="radio" name="memberGender" value="여성" checked>여성
+				<td><input type="radio" name="memberGender" id="select1"><label for="select1">남성</label>
+					<input type="radio" name="memberGender" checked id="select2"><label for="select2">여성</label>
 				</td>
 			</tr>
 			<tr>
@@ -69,15 +69,17 @@
 			</tr>
 			<tr>
 				<th>취미</th>
-				<td><input type="checkbox" name="memberHobby" value="야구">야구
-					<input type="checkbox" name="memberHobby" value="농구">농구 <input
-					type="checkbox" name="memberHobby" value="축구">축구</td>
+				<td><input type="checkbox" name="memberHobby" id="check1"><label for="check1">야구</label>
+					<input type="checkbox" name="memberHobby" id="check2"><label for="check2">농구</label>
+					<input type="checkbox" name="memberHobby" id="check3"><label for="check3">축구</label></td>
 			</tr>
 
 			<tr>
-				<td colspan=2 style="text-align: center;"><input type="submit"
-					name="btn" value="회원정보 저장하기"> <input type="reset"
-					name="btn" value="초기화"></td>
+				<td colspan=2 style="text-align: center;">
+				<button type="button" onclick="javascript:alert('저장하시겠습니까?');">
+				<img src="https://t1.daumcdn.net/daumtop_deco/images/pctop/2023/logo_daum.png" width="30px" height="30px">
+<!-- 					<input type="submit" name="btn" value="회원정보 저장하기"> <input type="reset"
+					name="btn" value="초기화"></td> -->
 			</tr>
 		</table>
 	</form>
