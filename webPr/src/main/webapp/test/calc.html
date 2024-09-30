@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>연산</title>
+</head>
+<body>
+	<h3>연산</h3>
+	<hr>
+	<script>
+		let x = 50;
+		let y = 3;
+
+		let add = x + y;
+		let sub = x - y;
+		let mul = x * y;
+		let div = x / y;
+		let remainder = x % y;
+
+		document.write("두 수의 합 ? " + add + "<br>");
+		document.write("두 수의 차 ? " + sub + "<br>");
+		document.write("두 수의 곱 ? " + mul + "<br>");
+		document.write("두 수의 나누기 ? " + div + "<br>");
+		document.write("두 수의 나머지 ? " + remainder + "<br>");
+
+		let a = x++;
+		document.write("a값은 ? " + a + "<br>");
+
+		let b = ++x;
+		document.write("b값은 ? " + b + "<br>");
+
+		document.write("a += b(a = a + b)의 값 ? " + (a += b) + "<br>");
+
+		document.write("조건연산자");
+
+		// 문제 : 영어점수가 90점 이상이면 A, 80점 이상이면 B, 70점 이상이면 C, 60점 이상이면 D, 그 외 F
+		let eng = 0;
+
+		if (eng >= 90) {
+			document.write("A");
+		} else if (eng >= 80) {
+			document.write("B");
+		} else if (eng >= 70) {
+			document.write("C");
+		} else if (eng >= 60) {
+			document.write("D")
+		} else {
+			document.write("F");
+		}
+	</script>
+</body>
+</html>
