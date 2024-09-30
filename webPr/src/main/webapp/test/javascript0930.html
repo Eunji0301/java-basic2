@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>script 태그에 자바스크립트 작성</title>
+<script>
+	function over(obj) {
+		obj.src="../images/banana.png";
+	}
+	function out(obj) {
+		obj.src="../images/apple.png";
+	}
+	
+	document.write("안녕하세요");
+	alert("경고창을 띄웁니다.");
+	
+	document.write("<p style='font-size:30px;color:red;'>글자크기 30px</p>");
+	document.write("<a href=\"http://www.naver.com\">네이버 가기</a>");
+	document.write("<a href=\"javascript:alert('클릭했나요 ?');\">클릭</a>");
+	
+	let value = prompt("이름을 입력하세요", "엄은지");
+	if(value == null) {
+		document.write("null입니다.");
+	} else if(value == "") {
+		document.write("빈값입니다.");
+	} else {
+		document.write(value);
+	}
+	
+	document.write("<br>");
+	
+	let value2 = confirm("전송할까요 ?");
+	if(value2 == true) {
+		document.write("네");
+	} else {
+		document.write("아니오");
+	}
+	
+</script>
+</head>
+<body>
+	<h3>마우스 올려 보세요</h3>
+	<hr>
+	<img src="../images/apple.png" title="이미지" onmouseover="over(this)"
+		onmouseout="out(this)">
+</body>
+</html>
