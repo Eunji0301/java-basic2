@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>if문, for문</title>
+</head>
+<body>
+	<script>
+		// 영어점수가 90점 이상이면 A, 80점 이상이면 B, 70점 이상이면 C, 60점 이상이면 D, 그 외 F
+		// 영어점수 변수 eng
+		let eng;
+		// eng = 89;
+		eng = prompt("점수를 입력하세요", "");
+
+		if (eng >= 90) {
+			document.write("A");
+		} else if (eng >= 80) {
+			document.write("B");
+		} else if (eng >= 70) {
+			document.write("C");
+		} else if (eng >= 60) {
+			document.write("D");
+		} else {
+			document.write("F");
+		}
+
+		document.write("<br>");
+
+		// switch문
+		// 수학점수 math가 90점이면 우수, 80점이면 보통, 70점이면 미흡, 60점이면 저조, 그 외 과락
+		let math = prompt("점수를 입력하세요", "");
+
+		switch (math) {
+		case "90":
+			document.write("우수");
+			break;
+		case "80":
+			document.write("보통");
+			break;
+		case "70":
+			document.write("미흡");
+			break;
+		case "60":
+			document.write("저조");
+			break;
+		default:
+			document.write("과락");
+		}
+
+		document.write("<br>");
+
+		// 입력한 요일에 따라 정상영업인지 아닌지를 출력
+		// 월-금 : 정상영업
+		// 토-일 : 휴일
+		let day = prompt("요일을 입력하세요", "");
+
+		switch (day) {
+		case "월":
+		case "화":
+		case "수":
+		case "목":
+		case "금":
+			document.write("정상영업");
+			break;
+		case "토":
+		case "일":
+			document.write("휴일");
+			break;
+		default:
+			document.write("요일을 정확하게 입력해주세요.");
+		}
+
+		document.write("<br>");
+
+		// for문 학습하기
+		// 형식 : for(초기식;조건식;증가식) {}
+		// 1에서 10까지의 수 출력
+		for (let i = 1; i <= 10; i++) {
+			document.write(i);
+		}
+
+		document.write("<br>");
+
+		// 1에서 11까지의 합을 구해서 결과를 출력해주세요.
+		let sum = 0;
+
+		for (let i = 1; i <= 11; i++) {
+			sum += i;
+		}
+		document.write("1에서 11까지의 합 : " + sum);
+
+		document.write("<br>");
+
+		// while문 이용해서 반복문 만들기
+		let j = 1;
+		let sum2 = 0;
+		while (j <= 11) {
+			sum2 += j;
+			j++;
+		}
+		document.write("1에서 11까지의 합 : " + sum2);
+
+		document.write("<br>");
+
+		// 1에서 100까지의 수 중에 홀수의 합을 구하시오.
+		let sum3 = 0;
+
+		for (let k = 0; k < 100; k++) {
+			if (k % 2 == 1) {
+				sum3 += k;
+			}
+		}
+		document.write("1에서 100까지의 수 중에 홀수의 합 : " + sum3);
+
+		document.write("<br>");
+
+		// do-while문
+		// 형식
+		/* 초기식
+		do {
+			증가식;
+		} while(조건식); */
+		// 일단 한 번은 수행하고 조건식을 수행하라는 뜻
+		// 1에서 10까지의 수 출력
+		let l = 0;
+
+		do {
+			document.write("순서 번호입니다. " + l);
+			document.write("<br>");
+			l++;
+		} while (l <= 10);
+
+		// 이중for문 사용하기 : for문 안에 for문 존재
+		/* for(초기식;조건식;증감식) {for(초기식;조건식;증감식)} */
+
+		// 별찍기
+		for (let a = 0; a < 5; a++) {
+			for (let b = 0; b < a + 1; b++) {
+				document.write("★");
+			}
+			document.write("<br>");
+		}
+
+		/* 		a값             b값
+		 0               0 // (별 1개)
+		 1               0, 1 // 2번 돈다(별 2개)
+		 2               0, 1, 2 // 3번 돈다(별 3개)
+		 3               0, 1, 2, 3 // 4번 돈다(별 4개)
+		 4               0, 1, 2, 3, 4 // 5번 돈다(별 5개) */
+
+		document.write("<br>");
+
+		// 정위치 별찍기
+		for (let c = 1; c <= 5; c++) {
+			for (let d = 5 - c; d > 0; d--) {
+				document.write("☆");
+			}
+			for (let d = 1; d <= c * 2 - 1; d++) {
+				document.write("★");
+			}
+			document.write("<br>");
+		}
+	</script>
+</body>
+</html>
