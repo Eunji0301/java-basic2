@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>함수 연습하기</title>
+</head>
+<body>
+	<script>
+		// 1-10까지의 수 중 홀수 합 구하기, continue 사용
+		let sum = 0;
+		for (let i = 1; i <= 10; i++) {
+			// 나머지연산자 % 사용
+			if (i % 2 == 0) { // i가 짝수일 때
+				continue; // 점프(if문 벗어나서 for문 실행)
+			}
+			sum += i;
+		}
+		document.write(sum);
+
+		document.write("<br>");
+
+		// 함수 만드는 방법
+		// 1. 형식부터 만들어놓는다.
+		// function 함수이름 () {return;}
+		function oddSum() {
+			// 홀수의 합을 구하는 함수 구현
+			let sum2 = 0;
+			for (let j = 1; j <= 10; j++) {
+				if (j % 2 == 1) {
+					sum2 += j;
+				}
+			}
+			return sum2;
+		}
+
+		let value = oddSum();
+		document.write(value);
+
+		document.write("<br>");
+
+		// 구구단 함수 만들고 호출해서 출력
+		// gugudan
+
+		function gugudan(n) {
+			// 구구단 만들기
+			let mul = 1;
+			/* for (let a = 2; a <= 9; a++) {
+				if (n == a) {
+					for (let b = 1; b <= 9; b++) {
+						mul = a * b;
+						document.write(a + " * " + b + " = " + mul);
+						document.write("<br>");
+					}
+				}
+				document.write("<br>");
+			}
+			return; */
+			for (let b = 1; b <= 9; b++) {
+				let mul2 = 1;
+				mul2 = n * b;
+				document.write(n + " * " + b + " = " + mul2);
+				document.write("<br>");
+			}
+			return;
+		}
+
+		let num = prompt("구구단 단을 입력하세요.", "");
+		gugudan(num);
+	</script>
+</body>
+</html>
