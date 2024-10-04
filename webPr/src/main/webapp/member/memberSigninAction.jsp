@@ -41,16 +41,16 @@ String memberBirth = request.getParameter("memberBirth");
 out.println("memberBirth값은 ? " + memberBirth);
 out.println("<br>");
 
-/* String[] memberHobby = request.getParameterValues("memberHobby");
+String[] memberHobby = request.getParameterValues("memberHobby");
 for (int i = 0; i < memberHobby.length; i++) {
 	out.println("memberHobby값은 ? " + memberHobby[i]);
-} */
+}
 
 /* 1. jsp 프로그래밍(날코딩 날코딩방법부터 -> 함수화 -> 객체화방식)
 2. java/jsp 프로그래밍(model1, model2 MVC 방식으로 진화되는 방법)
 3. spring 프레임워크로 프로그래밍하는 방법 */
 
-Connection conn = null;
+/* Connection conn = null;
 String url = "jdbc:mysql://127.0.0.1/aws0822?serverTimezone=UTC";
 String user = "root";
 String password = "1234";
@@ -58,7 +58,7 @@ String password = "1234";
 Class.forName("com.mysql.cj.jdbc.Driver");
 conn = DriverManager.getConnection(url, user, password);
 
-System.out.println("conn:" + conn);
+System.out.println("conn:" + conn); */
 %>
 
 
