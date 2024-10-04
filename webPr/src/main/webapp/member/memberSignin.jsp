@@ -6,6 +6,9 @@
 <TITLE>Signin</TITLE>
 <link href="../css/style.css" type="text/css" rel="stylesheet">
 <script>
+	const email = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+	// alert(email.test("hello@email.com"));
+
 	// 버튼을 눌렀을 때 check함수 작동
 	function check() {
 		var fm = document.frm;
@@ -35,6 +38,11 @@
 			alert("이메일을 입력해주세요.");
 			fm.memberEmail.focus();
 			return;
+		} else if (email.test(fm.memberEmail.value) == false) {
+			alert("이메일 형식이 올바르지 않습니다.");
+			fm.memberEmail.value = "";
+			fm.memberEmail.focus();
+			return;
 		} else if (fm.memberPhoneNumber.value == "") {
 			alert("연락처를 입력해주세요.");
 			fm.memberPhoneNumber.focus();
@@ -43,9 +51,39 @@
 			alert("생년월일을 입력해주세요.");
 			fm.memberBirth.focus();
 			return;
+		} else if (hobbyCheck() == false) {
+			alert("취미를 한 개 이상 선택해주세요.");
+			return;
 		}
 
-		return;
+		var ans = confirm("저장하시겠습니까 ?");
+		if (ans == true) {
+			// alert("이동해서 정보등록할 차례입니다.");
+			/* action="memberSigninAction.jsp" method="post" html 홈태그 기능을 자바스크립트로 제어*/
+			fm.action = "<%=request.getContextPath()%>/member/memberSigninAction.jsp";
+			fm.method = "post";
+			fm.submit();
+		}
+		return; // 리턴에 값을 쓰지 않으면 그냥 멈춤 종료
+	}
+
+	function hobbyCheck() {
+		var arr = document.frm.memberHobby; // 문서객체 내부 frm객체 안에 input객체 선언
+		var flag = false; // 체크유무 초기값 false 선언
+
+		for (var i = 0; i < arr.length; i++) { // 선택한 여러값을 반복해서 출력
+			if (arr[i].checked == true) { // 하나라도 선택했다면
+				flag = true; // true값 리턴
+				break;
+			}
+		}
+
+		/* if (flag == false) {
+			alert("취미를 한 개 이상 선택해주세요.");
+			return false;
+		} */
+
+		return flag;
 	}
 </script>
 </HEAD>
@@ -57,7 +95,7 @@
 	<nav>
 		<a href="./memberLogin.jsp">회원로그인 가기</a>
 	</nav>
-	<form name="frm" action="memberSigninAction.jsp" method="post">
+	<form name="frm">
 		<table border="1">
 			<tr>
 				<th class="idcolor">아이디</th>
