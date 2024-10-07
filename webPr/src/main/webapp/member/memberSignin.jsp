@@ -43,7 +43,7 @@
 			fm.memberEmail.value = "";
 			fm.memberEmail.focus();
 			return;
-		} else if (fm.memberPhoneNumber.value == "") {
+		} else if (fm.memberPhoneNumber.value == "") {2
 			alert("연락처를 입력해주세요.");
 			fm.memberPhoneNumber.focus();
 			return;
@@ -139,9 +139,9 @@
 			</tr>
 			<tr>
 				<th>성별</th>
-				<td><input type="radio" name="memberGender" id="select1"><label
+				<td><input type="radio" name="memberGender" id="select1" value="M"><label
 					for="select1">남성</label> <input type="radio" name="memberGender"
-					checked id="select2"><label for="select2">여성</label></td>
+					checked id="select2" value="F" checked><label for="select2">여성</label></td>
 			</tr>
 			<tr>
 				<th>생년월일</th>
@@ -150,11 +150,11 @@
 			</tr>
 			<tr>
 				<th>취미</th>
-				<td><input type="checkbox" name="memberHobby" id="check1"><label
+				<td><input type="checkbox" name="memberHobby" id="check1" value="야구"><label
 					for="check1">야구</label> <input type="checkbox" name="memberHobby"
-					id="check2"><label for="check2">농구</label> <input
+					id="check2" value="농구"><label for="check2">농구</label> <input
 					type="checkbox" name="memberHobby" id="check3"><label
-					for="check3">축구</label></td>
+					for="check3" value="축구">축구</label></td>
 			</tr>
 
 			<tr>

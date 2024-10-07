@@ -6,44 +6,37 @@
 
 <%
 String memberId = request.getParameter("memberId");
-out.println("memberId값은 ? " + memberId);
-out.println("<br>");
+System.out.println("memberId값은 ? " + memberId);
 
 String memberPw = request.getParameter("memberPw");
-out.println("memberPw값은 ? " + memberPw);
-out.println("<br>");
+System.out.println("memberPw값은 ? " + memberPw);
 
 String memberPwIsRight = request.getParameter("memberPwIsRight");
-out.println("memberPwIsRight값은 ? " + memberPwIsRight);
-out.println("<br>");
+System.out.println("memberPwIsRight값은 ? " + memberPwIsRight);
 
 String memberName = request.getParameter("memberName");
-out.println("memberName값은 ? " + memberName);
-out.println("<br>");
+System.out.println("memberName값은 ? " + memberName);
 
 String memberEmail = request.getParameter("memberEmail");
-out.println("memberEmail값은 ? " + memberEmail);
-out.println("<br>");
+System.out.println("memberEmail값은 ? " + memberEmail);
 
 String memberPhoneNumber = request.getParameter("memberPhoneNumber");
-out.println("memberPhoneNumber값은 ? " + memberPhoneNumber);
-out.println("<br>");
+System.out.println("memberPhoneNumber값은 ? " + memberPhoneNumber);
 
 String memberAddress = request.getParameter("memberAddress");
-out.println("memberAddress값은 ? " + memberAddress);
-out.println("<br>");
+System.out.println("memberAddress값은 ? " + memberAddress);
 
 String memberGender = request.getParameter("memberGender");
-out.println("memberGender값은 ? " + memberGender);
-out.println("<br>");
+System.out.println("memberGender값은 ? " + memberGender);
 
 String memberBirth = request.getParameter("memberBirth");
-out.println("memberBirth값은 ? " + memberBirth);
-out.println("<br>");
+System.out.println("memberBirth값은 ? " + memberBirth);
 
 String[] memberHobby = request.getParameterValues("memberHobby");
+String memberInHobby = "";
 for (int i = 0; i < memberHobby.length; i++) {
-	out.println("memberHobby값은 ? " + memberHobby[i]);
+	memberInHobby = memberInHobby + memberHobby[i] + ", ";
+	System.out.println("memberHobby값은 ? " + memberHobby[i]);
 }
 
 /* 1. jsp 프로그래밍(날코딩 날코딩방법부터 -> 함수화 -> 객체화방식)
@@ -59,6 +52,14 @@ Class.forName("com.mysql.cj.jdbc.Driver");
 conn = DriverManager.getConnection(url, user, password);
 
 System.out.println("conn:" + conn); */
+
+// conn 객체 안에는 많은 메서드가 있는데 일단 createStatement 메서드를 사용해서 쿼리 작성
+String sql = "insert into member (memberId, memberPw, memberName, "
+		+ "memberGender, memberBirth, memberAddress, memberPhone, "
+		+ "memberEmail, memberHobby) "
++ "values ('" + memberId + "', '" + memberPw + "', '" + memberName + "', '"
+		+ memberGender + "', '" + memberBirth + "', '" + memberAddress + "', '"
+		+ memberPhoneNumber + "', '" + memberEmail + "', '" + memberInHobby + "');";
 %>
 
 
