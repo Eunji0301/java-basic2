@@ -43,7 +43,7 @@ for (int i = 0; i < memberHobby.length; i++) {
 2. java/jsp 프로그래밍(model1, model2 MVC 방식으로 진화되는 방법)
 3. spring 프레임워크로 프로그래밍하는 방법 */
 
-/* Connection conn = null;
+Connection conn = null;
 String url = "jdbc:mysql://127.0.0.1/aws0822?serverTimezone=UTC";
 String user = "root";
 String password = "1234";
@@ -51,15 +51,34 @@ String password = "1234";
 Class.forName("com.mysql.cj.jdbc.Driver");
 conn = DriverManager.getConnection(url, user, password);
 
-System.out.println("conn:" + conn); */
+System.out.println("conn:" + conn);
 
-// conn 객체 안에는 많은 메서드가 있는데 일단 createStatement 메서드를 사용해서 쿼리 작성
+/* // conn 객체 안에는 많은 메서드가 있는데 일단 createStatement 메서드를 사용해서 쿼리 작성
 String sql = "insert into member (memberId, memberPw, memberName, "
-		+ "memberGender, memberBirth, memberAddress, memberPhone, "
-		+ "memberEmail, memberHobby) "
-+ "values ('" + memberId + "', '" + memberPw + "', '" + memberName + "', '"
-		+ memberGender + "', '" + memberBirth + "', '" + memberAddress + "', '"
-		+ memberPhoneNumber + "', '" + memberEmail + "', '" + memberInHobby + "');";
+		+ "memberGender, memberBirth, memberAddress, memberPhone, " + "memberEmail, memberHobby) " + "values ('"
+		+ memberId + "', '" + memberPw + "', '" + memberName + "', '" + memberGender + "', '" + memberBirth + "', '"
+		+ memberAddress + "', '" + memberPhoneNumber + "', '" + memberEmail + "', '" + memberInHobby + "');";
+
+Statement stmt = conn.createStatement(); // 쿼리 구문을 동작시키는 클래스
+int value = stmt.executeUpdate(sql);
+// value가 0이면 미입력 1이면 입력됨 */
+
+String sql = "insert into member (memberId, memberPw, memberName, "
+		+ "memberGender, memberBirth, memberAddress, memberPhone, " + "memberEmail, memberHobby) "
+		+ "values (?,?,?,?,?,?,?,?,?)";
+
+PreparedStatement pstmt = conn.prepareStatement(sql);
+pstmt.setString(1, memberId);
+pstmt.setString(2, memberPw);
+pstmt.setString(3, memberName);
+pstmt.setString(4, memberGender);
+pstmt.setString(5, memberBirth);
+pstmt.setString(6, memberAddress);
+pstmt.setString(7, memberPhoneNumber);
+pstmt.setString(8, memberEmail);
+pstmt.setString(9, memberInHobby);
+
+int value = pstmt.executeUpdate();
 %>
 
 
