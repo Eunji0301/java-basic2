@@ -3,6 +3,8 @@
 <%-- <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.DriverManager" %> --%>
 <%@ page import="java.sql.*"%>
+<%@ include file="/common/dbconn.jsp"%>
+<%@ include file="/common/function.jsp"%>
 
 <%
 String memberId = request.getParameter("memberId");
@@ -43,16 +45,6 @@ for (int i = 0; i < memberHobby.length; i++) {
 2. java/jsp 프로그래밍(model1, model2 MVC 방식으로 진화되는 방법)
 3. spring 프레임워크로 프로그래밍하는 방법 */
 
-Connection conn = null;
-String url = "jdbc:mysql://127.0.0.1/aws0822?serverTimezone=UTC";
-String user = "root";
-String password = "1234";
-
-Class.forName("com.mysql.cj.jdbc.Driver");
-conn = DriverManager.getConnection(url, user, password);
-
-System.out.println("conn:" + conn);
-
 /* // conn 객체 안에는 많은 메서드가 있는데 일단 createStatement 메서드를 사용해서 쿼리 작성
 String sql = "insert into member (memberId, memberPw, memberName, "
 		+ "memberGender, memberBirth, memberAddress, memberPhone, " + "memberEmail, memberHobby) " + "values ('"
@@ -63,32 +55,24 @@ Statement stmt = conn.createStatement(); // 쿼리 구문을 동작시키는 클
 int value = stmt.executeUpdate(sql);
 // value가 0이면 미입력 1이면 입력됨 */
 
-String sql = "insert into member (memberId, memberPw, memberName, "
-		+ "memberGender, memberBirth, memberAddress, memberPhone, " + "memberEmail, memberHobby) "
-		+ "values (?,?,?,?,?,?,?,?,?)";
+// PreparedStatement 클래스는 메서드화시켜 사용함
 
-PreparedStatement pstmt = conn.prepareStatement(sql);
-pstmt.setString(1, memberId);
-pstmt.setString(2, memberPw);
-pstmt.setString(3, memberName);
-pstmt.setString(4, memberGender);
-pstmt.setString(5, memberBirth);
-pstmt.setString(6, memberAddress);
-pstmt.setString(7, memberPhoneNumber);
-pstmt.setString(8, memberEmail);
-pstmt.setString(9, memberInHobby);
+// 매개변수에 인자값 대입해서 함수호출
+int value = memberInsert(conn, memberId, memberPw, memberName, memberGender, memberBirth, memberAddress,
+		memberPhoneNumber, memberEmail, memberInHobby);
 
-int value = pstmt.executeUpdate();
+// value값이 1이면 입력성공, 0이면 입력실패
+// 1이면 성공했기때문에 다른 페이지로 이동시키고, 0이면 다시 회원가입페이지로 간다.
+String pageUrl = "";
+if(value == 1) { // 					  index.jsp파일은 web.xml 웹 설정파일에 기본등록되어있어 생략 가능
+	pageUrl = request.getContextPath() + "/"; // request.getContextPath() : 프로젝트이름
+	// response.sendRedirect(pageUrl); // 전송방식 sendRedirect는 요청받으면 다시 그쪽으로 가라고 지시하는 방법
+} else {
+	pageUrl = request.getContextPath() + "/member/memberSignin.jsp";
+	// response.sendRedirect(pageUrl);
+}
 %>
-
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+<script>
+// 자바스크립트로 페이지 이동시킨다. document 객체 안에 location 객체 안에 주소속성에 담아서
+document.location.href="<%=pageUrl%>";
+</script>
