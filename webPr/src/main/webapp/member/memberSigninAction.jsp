@@ -90,6 +90,5 @@ if (value == 1) { // 					  index.jsp파일은 web.xml 웹 설정파일에 기�
 <script>
 alert('<%=msg%>');
 // 자바스크립트로 페이지 이동시킨다. document 객체 안에 location 객체 안에 주소속성에 담아서
-document.location.href="<%=pageUrl%>
-	";
+document.location.href="<%=pageUrl%>;"
 </script>
