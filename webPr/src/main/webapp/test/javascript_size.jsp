@@ -93,5 +93,7 @@
 	<br> 니
 	<br> 다
 	<br>
+	
+	<a href="http://localhost/webPr/test/javascript_history.jsp">이동</a>
 </body>
 </html>
