@@ -225,7 +225,7 @@ public class BoardDao {
 			try { // 각 객체도 소멸시키고 DB연결 끊는다
 				rs.close();
 				pstmt.close();
-				conn.close();
+			//	conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -235,10 +235,12 @@ public class BoardDao {
 
 	// 게시물 수정하기
 	public int boardUpdate(BoardVo bv) {
+		
+		System.out.println("비밀번호" + bv.getPassword());
 		int value = 0;
 
-		String sql = "UPDATE board SET subject = ?, contents= ? ,writer = ?, modifyday=NOW() WHERE bidx = ? AND PASSWORD = ?";
-		try { 
+		String sql = "UPDATE board SET subject = ?, contents= ?, writer = ?, modifyday = NOW() WHERE bidx = ? AND PASSWORD = ?";
+		try { 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, bv.getSubject());
 			pstmt.setString(2, bv.getContents());
@@ -247,6 +249,7 @@ public class BoardDao {
 			pstmt.setString(5, bv.getPassword());
 
 			value = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

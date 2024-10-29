@@ -53,6 +53,8 @@ public class CommentController extends HttpServlet {
 			String cwriter = "";
 			String ccontents = "";
 			String writeday = "";
+			String delyn = "";
+			int midx = 0;
 
 			String str = "";
 			for (int i = 0; i < alist.size(); i++) {
@@ -60,8 +62,11 @@ public class CommentController extends HttpServlet {
 				cwriter = alist.get(i).getCwriter();
 				ccontents = alist.get(i).getCcontents();
 				writeday = alist.get(i).getWriteday();
-
-				str += "{\"cidx\" : \"" + cidx + "\", \"cwriter\" : \"" + cwriter + "\", \"ccontents\" : \"" + ccontents + "\", \"writeday\" : \"" + writeday + "\"}";
+				delyn = alist.get(i).getDelyn();
+				midx = alist.get(i).getMidx();
+				str += "{\"cidx\" : \"" + cidx + "\", \"cwriter\" : \"" + cwriter + "\", \"ccontents\" : \"" + ccontents
+						+ "\", \"writeday\" : \"" + writeday + "\", \"delyn\" : \"" + delyn + "\", \"midx\" : \"" + midx
+						+ "\"}";
 				// {"cidx" : "1", ...}
 			}
 			PrintWriter out = response.getWriter();
@@ -71,13 +76,13 @@ public class CommentController extends HttpServlet {
 			// System.out.println("commentWriteAction.aws");
 
 			String cwriter = request.getParameter("cwriter");
-			System.out.println("cwriter" + cwriter);
+			System.out.println("cwriter : " + cwriter);
 			String ccontents = request.getParameter("ccontents");
-			System.out.println("ccontents" + ccontents);
+			System.out.println("ccontents : " + ccontents);
 			String bidx = request.getParameter("bidx");
-			System.out.println("bidx" + bidx);
+			System.out.println("bidx : " + bidx);
 			String midx = request.getParameter("midx");
-			System.out.println("midx" + midx);
+			System.out.println("midx : " + midx);
 
 			CommentVo cv = new CommentVo();
 			cv.setCwriter(cwriter);
@@ -94,17 +99,17 @@ public class CommentController extends HttpServlet {
 			out.println(str);
 
 		} else if (location.equals("commentDeleteAction.aws")) {
-			/*
-			 * String bidx = request.getParameter("bidx"); String password =
-			 * request.getParameter("password");
-			 * 
-			 * // 처리하기 BoardDao bd = new BoardDao(); int value =
-			 * bd.boardDelete(Integer.parseInt(bidx), password); // 0, 1
-			 * 
-			 * paramMethod = "S"; if (value == 1) { url = request.getContextPath() +
-			 * "/board/boardList.aws"; } else { url = request.getContextPath() +
-			 * "/board/boardDelete.aws?bidx = " + bidx; }
-			 */
+			String cidx = request.getParameter("cidx");
+			System.out.println("cidx : " + cidx);
+
+			// delyn Y로 업데이트하는 메서드를 만들어서 호출
+			CommentDao cd = new CommentDao();
+			int value = cd.commentDelete(Integer.parseInt(cidx));
+
+			// 그리고 나서 화면에 실행성공여부를 json 파일로 보여준다.
+			PrintWriter out = response.getWriter();
+			String str = "{\"value\" : \"" + value + "\"}";
+			out.println(str);
 
 		}
 	}

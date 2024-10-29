@@ -53,8 +53,7 @@ th {
 	padding: 10px 0;
 }
 
-input[type="text"], input[type="password"], input[type="file"], textarea
-	{
+input[type="text"], input[type="password"], input[type="file"], textarea {
 	width: 100%;
 	padding: 10px;
 	margin-bottom: 20px;
@@ -89,17 +88,17 @@ textarea {
 	function check() {
 		var fm = document.frm;
 
-		if (fm.title.value == "") {
+		if (fm.subject.value == "") {
 			alert("제목을 입력해주세요");
-			fm.title.focus();
+			fm.subject.focus();
 			return;
-		} else if (fm.content.value == "") {
+		} else if (fm.contents.value == "") {
 			alert("내용을 입력해주세요");
-			fm.content.focus();
+			fm.contents.focus();
 			return;
-		} else if (fm.author.value == "") {
+		} else if (fm.writer.value == "") {
 			alert("작성자를 입력해주세요");
-			fm.author.focus();
+			fm.writer.focus();
 			return;
 		} else if (fm.password.value == "") {
 			alert("비밀번호를 입력해주세요");
@@ -110,8 +109,6 @@ textarea {
 		fm.method = "post";
 		fm.enctype = "multipart/form-data";
 		fm.submit();
-
-		return;
 	}
 </script>
 </head>
@@ -125,15 +122,15 @@ textarea {
 			<table>
 				<tr>
 					<th>제목</th>
-					<td><input type="text" id="title" name="title"></td>
+					<td><input type="text" id="title" name="subject"></td>
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td><textarea id="content" name="content"></textarea></td>
+					<td><textarea id="content" name="contents"></textarea></td>
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td><input type="text" id="author" name="author"></td>
+					<td><input type="text" id="author" name="writer"></td>
 				</tr>
 				<tr>
 					<th>비밀번호</th>
@@ -141,7 +138,7 @@ textarea {
 				</tr>
 				<tr>
 					<th>첨부파일</th>
-					<td><input type="file" id="file" name="file"></td>
+					<td><input type="file" id="filename" name="filename"></td>
 				</tr>
 			</table>
 			<div class="button-group">

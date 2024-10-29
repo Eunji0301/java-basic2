@@ -158,7 +158,7 @@ public class BoardController extends HttpServlet {
 				paramMethod = "S";
 				url = request.getContextPath() + "/board/boardWrite.aws";
 			}
-			
+
 		} else if (location.equals("boardContent.aws")) { // 게시물 내용 보기 요청
 
 			System.out.println("boardContent");
@@ -220,6 +220,7 @@ public class BoardController extends HttpServlet {
 				if (value == 1) {
 					url = request.getContextPath() + "/board/boardContent.aws?bidx=" + bidx; // 내용 페이지로 이동
 				} else {
+					// 수정이 실패한 경우
 					url = request.getContextPath() + "/board/boardModify.aws?bidx=" + bidx; // 수정 페이지로 이동
 				}
 			} else {
@@ -238,28 +239,177 @@ public class BoardController extends HttpServlet {
 			out.flush(); // 플러시
 			out.close(); // 종료
 			return;
-		} else if (location.equals("boardDelete.aws")) { // 게시물 삭제 요청
+		} else if (location.equals("boardDelete.aws")) {
 			System.out.println("boardDelete");
+
+			String bidx = request.getParameter("bidx");
+
+			request.setAttribute("bidx", bidx);
+
+			paramMethod = "F";
+			url = "/board/boardDelete.jsp";
+		} else if (location.equals("boardDeleteAction.aws")) { // 게시물 삭제 요청
+			System.out.println("boardDeleteAction");
 
 			String bidx = request.getParameter("bidx");
 			String password = request.getParameter("password");
 
+			// 처리
 			BoardDao bd = new BoardDao();
-			BoardVo bv = bd.boardSelectOne(Integer.parseInt(bidx)); // 삭제할 게시물 데이터 가져오기
+			int value = bd.boardDelete(Integer.parseInt(bidx), password);
+			System.out.println("value : " + value);
 
 			paramMethod = "S"; // sendRedirect 방식
-			// 비밀번호 체크
-			if (password.equals(bv.getPassword())) { // 비밀번호가 일치하면
-				int value = bd.boardDelete(Integer.parseInt(bidx), password); // 게시물 삭제
-				if (value == 1) {
-					url = request.getContextPath() + "/board/boardList.aws"; // 목록 페이지로 이동
-				} else {
-					url = request.getContextPath() + "/board/boardContent.aws?bidx=" + bidx; // 게시물 내용 페이지로 이동
-				}
+			if (value == 1) {
+				url = request.getContextPath() + "/board/boardList.aws";
 			} else {
-				// 비밀번호가 다르면
-				url = request.getContextPath() + "/board/boardContent.aws?bidx=" + bidx; // 게시물 내용 페이지로 이동
+				url = request.getContextPath() + "/board/boardDelete.aws?bidx=" + bidx;
 			}
+		} else if (location.equals("boardReply.aws")) {
+			String bidx = request.getParameter("bidx");
+
+			BoardDao bd = new BoardDao();
+			BoardVo bv = bd.boardSelectOne(Integer.parseInt(bidx));
+			int originbidx = bv.getOriginbidx();
+			int depth = bv.getDepth();
+			int level_ = bv.getLevel_();
+
+			request.setAttribute("bidx", Integer.parseInt(bidx));
+			request.setAttribute("originbidx", originbidx);
+			request.setAttribute("depth", depth);
+			request.setAttribute("level_", level_);
+
+			paramMethod = "F";
+			url = "/board/boardReply.jsp";
+
+		} else if (location.equals("boardReplyAction.aws")) {
+			System.out.println("boardReplyAction");
+
+			// 저장되는 위치
+			String savePath = "D:\\dev\\eclipse-workspace\\mvc_programming\\src\\main\\webapp\\images\\";
+			System.out.println(savePath);
+
+			// 업로드 되는 파일사이즈
+			int fsize = (int) request.getPart("filename").getSize();
+
+			// 원본 파일이름
+			String originFileName = "";
+			if (fsize != 0) {
+				Part filePart = (Part) request.getPart("filename"); // 넘어온 멀티파트형식의 파일을 Part클래스로 담는다
+				System.out.println("filePart ==> " + filePart);
+
+				originFileName = getFileName(filePart); // 파일이름 추출
+				System.out.println("originFileName ==> " + originFileName);
+
+				System.out.println("저장되는 위치 ==> " + savePath + originFileName);
+
+				File file = new File(savePath + originFileName); // 파일객체 생성
+				InputStream is = filePart.getInputStream(); // 파일 읽어들이는 스트림 생성
+				FileOutputStream fos = null;
+
+				fos = new FileOutputStream(file); // 파일 작성 및 완성하는 스트림생성
+
+				int temp = -1;
+
+				while ((temp = is.read()) != -1) { // 반복문을 돌려서 읽어드린 데이터를 output에 작성한다
+					fos.write(temp);
+				}
+				is.close(); // input 스트림 객체 소멸
+				fos.close(); // Output 스트림 객체소멸
+			} else {
+				originFileName = "";
+			}
+
+			// 1. 파라미터값을 넘겨받는다.
+			String subject = request.getParameter("subject");
+			String contents = request.getParameter("contents");
+			String writer = request.getParameter("writer");
+			String password = request.getParameter("password");
+			String bidx = request.getParameter("bidx");
+			String originbidx = request.getParameter("originbidx");
+			String depth = request.getParameter("depth");
+			String level_ = request.getParameter("level_");
+
+			HttpSession session = request.getSession(); // 세션 객체를 불러와서
+			int midx = Integer.parseInt(session.getAttribute("midx").toString());
+//			Integer midx = (Integer) session.getAttribute("midx");
+			// 로그인할때 담았던 세션변수 midx값을 꺼낸다
+
+			String ip = "";
+			try {
+				ip = getUserIp(request);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			BoardVo bv = new BoardVo();
+			bv.setSubject(subject);
+			bv.setContents(contents);
+			bv.setWriter(writer);
+			bv.setPassword(password);
+			bv.setMidx(midx);
+			bv.setFilename(originFileName); // 파일 이름 DB컬럼 추가
+			bv.setBidx(Integer.parseInt(bidx));
+			bv.setOriginbidx(Integer.parseInt(originbidx));
+			bv.setDepth(Integer.parseInt(depth));
+			bv.setLevel_(Integer.parseInt(level_));
+			bv.setIp(ip);
+
+			BoardDao bd = new BoardDao();
+			int maxbidx = bd.boardReply(bv);
+
+			paramMethod = "S";
+			if (maxbidx != 0) {
+				url = request.getContextPath() + "/board/boardContent.aws?bidx=" + maxbidx;
+			} else {
+				url = request.getContextPath() + "/board/boardReply.aws?bidx=" + bidx;
+			}
+		} else if (location.equals("boardDownload.aws")) {
+			System.out.println("boardDownload.aws");
+
+			String filename = request.getParameter("filename");
+
+			String savePath = "D:\\dev\\eclipse-workspace\\mvc_programming\\src\\main\\webapp\\images\\";
+
+			ServletOutputStream sos = response.getOutputStream();
+
+			String downfile = savePath + filename;
+			// System.out.println("downfile:"+downfile);
+
+			File f = new File(downfile);
+
+			String header = request.getHeader("User-Agent");
+
+			String fileName = "";
+			response.setHeader("Cache-Control", "no-cache");
+			if (header.contains("Chrome") || header.contains("Opera") || header.contains("Firefox")) {
+
+				fileName = new String(filename.getBytes("UTF-8"), "ISO-8859-1");
+				response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+
+			} else if (header.contains("MSIE") || header.contains("Trident") || header.contains("Edge")) {
+
+				fileName = URLEncoder.encode(filename, "UTF-8").replaceAll("\\+", "%20");
+				response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+
+			} else {
+				response.setHeader("Content-Disposition", "attachment;filename=" + filename);
+			}
+
+			FileInputStream in = new FileInputStream(f); // 파일을 버퍼로 읽어봐서 출력한다
+
+			byte[] buffer = new byte[1024 * 8];
+
+			while (true) {
+				int count = in.read(buffer);
+				if (count == -1) {
+					break;
+				}
+				sos.write(buffer, 0, count);
+			}
+
+			in.close();
+			sos.close();
 		}
 
 		// URL을 통한 페이지 이동
@@ -316,7 +466,6 @@ public class BoardController extends HttpServlet {
 			InetAddress address = InetAddress.getLocalHost();
 			ip = address.getHostAddress();
 		}
-
 		return ip;
 	}
 }

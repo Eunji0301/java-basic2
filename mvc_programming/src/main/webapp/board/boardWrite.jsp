@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/common/loginCheck.jsp" %>
+<%@ include file="/common/loginCheck.jsp"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -105,7 +105,7 @@ textarea {
 		fm.method = "post";
 		fm.enctype = "multipart/form-data";
 		fm.submit();
-		
+
 		return;
 	}
 </script>

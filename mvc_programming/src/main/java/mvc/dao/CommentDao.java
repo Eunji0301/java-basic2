@@ -33,18 +33,22 @@ public class CommentDao {
 			pstmt.setInt(1, bidx);
 			rs = pstmt.executeQuery();
 
-			while (rs.next()) { // 커서가 다음으로 이동해서 첫 글이 있느냐 물어보고 true면 진행 int bidx =
+			while (rs.next()) { // 커서가 다음으로 이동해서 첫 글이 있느냐 물어보고 true면 진행
 				int cidx = rs.getInt("cidx");
 				String ccontents = rs.getString("ccontents");
 				String cwriter = rs.getString("cwriter");
 				String writeday = rs.getString("writeday");
+				String delyn = rs.getString("delyn");
+				int midx = rs.getInt("midx");
 
 				CommentVo cv = new CommentVo();
 
 				cv.setCcontents(ccontents);
 				cv.setCwriter(cwriter);
 				cv.setWriteday(writeday);
-
+				cv.setDelyn(delyn);
+				cv.setMidx(midx);
+				
 				alist.add(cv);
 			}
 		} catch (SQLException e) {
@@ -63,7 +67,7 @@ public class CommentDao {
 
 	public int commentInsert(CommentVo cv) {
 		int value = 0;
-		
+
 		String ccontents = cv.getCcontents();
 		String csubject = cv.getCsubject();
 		String cwriter = cv.getCwriter();
@@ -72,7 +76,7 @@ public class CommentDao {
 		String cip = cv.getCip();
 
 		String sql = "INSERT INTO comment(csubject, ccontents, cwriter, bidx, midx, cip) "
-				+ "VALUES (?, ?, ?, ?, ?);";
+				+ "VALUES (?, ?, ?, ?, ?, ?);";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -97,17 +101,24 @@ public class CommentDao {
 		return value;
 	}
 
-	//public int commentDelete(int bidx, String password) {
-		/*
-		 * int value = 0; String sql =
-		 * "UPDATE board SET delYN='Y' WHERE bidx = ? AND password = ?";
-		 * 
-		 * try { pstmt = conn.prepareStatement(sql); pstmt.setInt(1, bidx); // 해당 게시글을
-		 * 찾기 위한 bidx pstmt.setString(2, password); value = pstmt.executeUpdate(); //
-		 * update를 실행하고 결과 저장. 성공하면 1, 실패하면 0 } catch (SQLException e) {
-		 * e.printStackTrace(); } finally { try { // 각 객체도 소멸시키고 DB연결 끊는다 pstmt.close();
-		 * conn.close(); } catch (SQLException e) { e.printStackTrace(); } } return
-		 * value;
-		 */
-	//}
+	public int commentDelete(int cidx) {
+
+		int value = 0;
+		String sql = "UPDATE comment SET delYN='Y' WHERE cidx = ?";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cidx); // 해당 게시글을 찾기 위한 bidx
+			value = pstmt.executeUpdate(); // update를 실행하고 결과 저장. 성공하면 1, 실패하면 0
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try { // 각 객체도 소멸시키고 DB연결 끊는다 pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return value;
+	}
 }
